@@ -1,0 +1,63 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<display-name>LoginServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<display-name>RegisterServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddReservationServlet</servlet-name>
+  	<display-name>AddReservationServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.AddReservationServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>BillServlet</servlet-name>
+  	<display-name>BillServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.BillServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteImageServlet</servlet-name>
+  	<display-name>DeleteImageServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.DeleteImageServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EditImageTitleServlet</servlet-name>
+  	<display-name>EditImageTitleServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.EditImageTitleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/RegisterServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddReservationServlet</servlet-name>
+  	<url-pattern>/AddReservationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BillServlet</servlet-name>
+  	<url-pattern>/BillServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteImageServlet</servlet-name>
+  	<url-pattern>/DeleteImageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>EditImageTitleServlet</servlet-name>
+  	<url-pattern>/EditImageTitleServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
