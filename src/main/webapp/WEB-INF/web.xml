@@ -40,6 +40,18 @@
   	<description></description>
   	<servlet-class>com.icbt.oceanview.controller.EditImageTitleServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<display-name>LogoutServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CustomerReservationStatusServlet</servlet-name>
+  	<display-name>CustomerReservationStatusServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.CustomerReservationStatusServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>RegisterServlet</servlet-name>
   	<url-pattern>/RegisterServlet</url-pattern>
@@ -59,5 +71,13 @@
   <servlet-mapping>
   	<servlet-name>EditImageTitleServlet</servlet-name>
   	<url-pattern>/EditImageTitleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LogoutServlet</servlet-name>
+  	<url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CustomerReservationStatusServlet</servlet-name>
+  	<url-pattern>/CustomerReservationStatusServlet</url-pattern>
   </servlet-mapping>
 </web-app>

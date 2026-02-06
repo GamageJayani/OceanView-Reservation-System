@@ -15,7 +15,9 @@ public class Reservation {
     private boolean breakfast;
     private boolean lunch;
     private boolean dinner;
-
+    
+    private String status; // add status directly here too for convenience
+    
     // getters & setters
     public int getReservationId() { return reservationId; }
     public void setReservationId(int reservationId) {
@@ -66,4 +68,9 @@ public class Reservation {
     public void setDinner(boolean dinner) {
         this.dinner = dinner;
     }
-}
+    public String getStatus() { return status; }
+    public void setStatus(String status) { 
+    	this.status = status; 
+    }
+		
+	}
