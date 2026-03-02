@@ -1,18 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="com.icbt.oceanview.model.User" %>
+
+<%
+User user = (User) session.getAttribute("user");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>About Us | Ocean View Resort</title>
+    <link rel="stylesheet" href="css/style.css">
 
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f4f7fb;
-            margin:0;
-            padding:0;
-        }
+         bbody{
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    min-height:100vh;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url('images/background6.jpeg');
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
 
         .container{
             width:85%;
@@ -89,13 +103,38 @@
         .contact-box a:hover{
             background:#e6f0ff;
         }
+        
+        .contact-box p {
+    color: #ffffff !important;
+}
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
+<div class="menu">
+    <span class="logo">Ocean View Resort</span>
 
+    <a href="customerdashboard.jsp">Dashboard</a>
+    <a href="addReservation.jsp">Add Reservation</a>
+    <a href="myReservations.jsp">My Reservations</a>
+    <a href="bill.jsp">Bill</a>
+    <a href="gallery.jsp">Gallery</a>
+    <a href="about.jsp">About</a>
+    <a href="help.jsp">Help</a>
+
+    <span class="right">
+        <% if(user != null){ %>
+            Welcome, <strong><%= user.getFullName() %></strong>
+            <a href="logout" class="logout">Logout</a>
+        <% } else { %>
+            <a href="login.jsp">Login</a>
+        <% } %>
+    </span>
+</div>
+
+<div class="container">
     <h1>About Ocean View Resort</h1>
 
     <!-- INTRO -->

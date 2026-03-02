@@ -18,15 +18,15 @@ public class ReplyMessageServlet extends HttpServlet {
                           HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1️⃣ Get form values
+        // 1️ Get form values
         int messageId = Integer.parseInt(request.getParameter("messageId"));
         String replyText = request.getParameter("reply");
 
-        // 2️⃣ Update DB
+        // 2️ Update DB
         MessageDAO dao = new MessageDAO();
         dao.replyMessage(messageId, replyText);
 
-        // 3️⃣ Redirect back to inbox
+        // 3️ Redirect back to inbox
         response.sendRedirect("adminmessages.jsp?replied=true");
     }
 }

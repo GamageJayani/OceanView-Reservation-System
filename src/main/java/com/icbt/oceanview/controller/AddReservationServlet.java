@@ -33,7 +33,7 @@ public class AddReservationServlet extends HttpServlet {
 	        Reservation r = new Reservation();
 	        r.setGuestName(request.getParameter("guestName"));
 	        r.setAddress(request.getParameter("address"));
-	        r.setContactNumber(request.getParameter("contactNumber"));
+	        r.setPhone(request.getParameter("phone"));
 	        r.setRoomType(request.getParameter("roomType"));
 	        r.setCheckIn(Date.valueOf(request.getParameter("checkIn")));
 	        r.setCheckOut(Date.valueOf(request.getParameter("checkOut")));

@@ -21,11 +21,17 @@ public class BillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect("viewReservation.jsp?error=invalidId");
+            return;
+        }
 
         ReservationDAO dao = new ReservationDAO();
         Reservation r = dao.getReservation(id);
-        
+
         if (r == null) {
             response.sendRedirect("viewReservation.jsp?error=notfound");
             return;
@@ -35,6 +41,7 @@ public class BillServlet extends HttpServlet {
                 r.getCheckIn().toLocalDate(),
                 r.getCheckOut().toLocalDate());
 
+        // Room rate
         double rate;
         switch (r.getRoomType()) {
             case "Single": rate = 5000; break;
@@ -45,22 +52,23 @@ public class BillServlet extends HttpServlet {
             default: rate = 0;
         }
 
+        // Meal total (per night)
         double mealTotal = 0;
-        if (r.isBreakfast()) mealTotal += 1500;
-        if (r.isLunch()) mealTotal += 2500;
-        if (r.isDinner()) mealTotal += 3000;
+        if (r.isBreakfast()) mealTotal += 1500 * nights;
+        if (r.isLunch()) mealTotal += 2500 * nights;
+        if (r.isDinner()) mealTotal += 3000 * nights;
 
-        double roomTotal = nights * rate;
+        double roomTotal = rate * nights;
         double subTotal = roomTotal + mealTotal;
-
         double serviceCharge = subTotal * 0.10; // 10%
         double grandTotal = subTotal + serviceCharge;
 
-        // Extra details
+        // Bill meta info
         String billNumber = "BILL-" + UUID.randomUUID().toString().substring(0, 6);
         String paymentStatus = "Pending";
         String paymentMethod = "Cash";
 
+        // Set request attributes for JSP
         request.setAttribute("reservation", r);
         request.setAttribute("nights", nights);
         request.setAttribute("rate", rate);

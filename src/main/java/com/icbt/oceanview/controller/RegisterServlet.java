@@ -3,9 +3,7 @@ package com.icbt.oceanview.controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.icbt.oceanview.dao.UserDAO;
 import com.icbt.oceanview.model.User;
@@ -17,23 +15,30 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+            HttpServletResponse response)
+throws ServletException, IOException {
 
-        User user = new User();
-        user.setFullName(request.getParameter("fullName"));
-        user.setEmail(request.getParameter("email"));
-        user.setPhone(request.getParameter("phone"));
-        user.setUsername(request.getParameter("username"));
-        user.setPassword(request.getParameter("password"));
-        user.setRole("customer");
-        
+System.out.println("RegisterServlet doPost called!");
 
-        UserDAO dao = new UserDAO();
-        dao.registerUser(user);
+User user = new User();
+user.setFullName(request.getParameter("fullName"));
+user.setEmail(request.getParameter("email"));
+user.setPhone(request.getParameter("phone"));
+user.setUsername(request.getParameter("username"));
+user.setPassword(request.getParameter("password"));
+user.setRole("CUSTOMER");
 
-        response.sendRedirect("login.jsp");
-    }
+UserDAO dao = new UserDAO();
+boolean success = dao.registerUser(user);
+
+System.out.println("Insert result: " + success);
+
+if(success){
+response.sendRedirect("login.jsp?registered=true");
+} else {
+response.sendRedirect("register.jsp?error=true");
+}
+}
 
     @Override
     protected void doGet(HttpServletRequest request,

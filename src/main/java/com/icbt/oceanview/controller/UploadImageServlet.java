@@ -38,6 +38,6 @@ public class UploadImageServlet extends HttpServlet {
 
         new GalleryDAO().saveImage(img);
 
-        resp.sendRedirect("admin/uploadimage.jsp?success=true");
+        resp.sendRedirect("uploadimage.jsp?success=true");
     }
 }

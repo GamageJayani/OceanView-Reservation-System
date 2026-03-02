@@ -10,19 +10,18 @@ import com.icbt.oceanview.model.Reservation;
 
 public class ReservationDAO {
 
+    // Add a new reservation
     public void addReservation(Reservation r) {
         try {
             Connection con = DBConnection.getConnection();
-
-            String sql = "INSERT INTO reservations " +
-            "(guest_name,address,contact_number,room_type,check_in,check_out,breakfast,lunch,dinner,status) " +
-            "VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO reservations "
+                       + "(guest_name, address, contact_number, room_type, check_in, check_out, breakfast, lunch, dinner, status) "
+                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setString(1, r.getGuestName());
             ps.setString(2, r.getAddress());
-            ps.setString(3, r.getContactNumber());
+            ps.setString(3, r.getPhone());
             ps.setString(4, r.getRoomType());
             ps.setDate(5, r.getCheckIn());
             ps.setDate(6, r.getCheckOut());
@@ -32,12 +31,12 @@ public class ReservationDAO {
             ps.setString(10, "PENDING");
 
             ps.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // Get reservation by reservation ID
     public Reservation getReservation(int id) {
         Reservation r = null;
         try {
@@ -48,18 +47,7 @@ public class ReservationDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                r = new Reservation();
-                r.setReservationId(rs.getInt("reservation_id"));
-                r.setGuestName(rs.getString("guest_name"));
-                r.setAddress(rs.getString("address"));
-                r.setContactNumber(rs.getString("contact_number"));
-                r.setRoomType(rs.getString("room_type"));
-                r.setCheckIn(rs.getDate("check_in"));
-                r.setCheckOut(rs.getDate("check_out"));
-                r.setBreakfast(rs.getBoolean("breakfast"));
-                r.setLunch(rs.getBoolean("lunch"));
-                r.setDinner(rs.getBoolean("dinner"));
-                r.setStatus(rs.getString("status"));
+                r = mapResultSetToReservation(rs);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,6 +55,7 @@ public class ReservationDAO {
         return r;
     }
 
+    // Update reservation status
     public void updateStatus(int reservationId, String status) {
         try {
             Connection con = DBConnection.getConnection();
@@ -80,9 +69,9 @@ public class ReservationDAO {
         }
     }
 
+    // Fetch all reservations for a customer (using contact number)
     public List<Reservation> getReservationsByCustomer(String contact) {
         List<Reservation> list = new ArrayList<>();
-        
         try {
             Connection con = DBConnection.getConnection();
             String sql = "SELECT * FROM reservations WHERE contact_number=?";
@@ -91,18 +80,48 @@ public class ReservationDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Reservation r = new Reservation();
-                r.setReservationId(rs.getInt("reservation_id"));
-                r.setGuestName(rs.getString("guest_name"));
-                r.setRoomType(rs.getString("room_type"));
-                r.setCheckIn(rs.getDate("check_in"));
-                r.setCheckOut(rs.getDate("check_out"));
-                r.setStatus(rs.getString("status"));
+                Reservation r = mapResultSetToReservation(rs);
                 list.add(r);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    // Optional: fetch all reservations (admin view)
+    public List<Reservation> getAllReservations() {
+        List<Reservation> list = new ArrayList<>();
+        try {
+            Connection con = DBConnection.getConnection();
+            String sql = "SELECT * FROM reservations";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Reservation r = mapResultSetToReservation(rs);
+                list.add(r);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Helper method to map ResultSet to Reservation object
+    private Reservation mapResultSetToReservation(ResultSet rs) throws Exception {
+        Reservation r = new Reservation();
+        r.setReservationId(rs.getInt("reservation_id"));
+        r.setGuestName(rs.getString("guest_name"));
+        r.setAddress(rs.getString("address"));
+        r.setPhone(rs.getString("phone"));
+        r.setRoomType(rs.getString("room_type"));
+        r.setCheckIn(rs.getDate("check_in"));
+        r.setCheckOut(rs.getDate("check_out"));
+        r.setBreakfast(rs.getBoolean("breakfast"));
+        r.setLunch(rs.getBoolean("lunch"));
+        r.setDinner(rs.getBoolean("dinner"));
+        r.setStatus(rs.getString("status"));
+        return r;
     }
 }
