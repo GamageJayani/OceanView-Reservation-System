@@ -11,7 +11,7 @@
     <style>
     /* style.css */
 
-/* GENERAL BODY */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f8fb;
