@@ -144,24 +144,24 @@ List<GalleryImage> images = new GalleryDAO().getAllImages();
 <body>
 
 
+<!--  NAV BAR -->
 <div class="menu">
     <span class="logo">Ocean View Resort</span>
 
-    <a href="customerdashboard.jsp">Dashboard</a>
+    <a href="customerdashboard.jsp">Home</a>
     <a href="addReservation.jsp">Add Reservation</a>
-    <a href="myReservations.jsp">My Reservations</a>
-    <a href="bill.jsp">Bill</a>
+    <a href="CustomerReservationServlet">My Reservations</a>
     <a href="gallery.jsp">Gallery</a>
+    <a href="payment.jsp"> Payment</a>
+    <a href="viewMessages.jsp">Message</a>
+    <a href="feedback.jsp">Feedback</a>
     <a href="about.jsp">About</a>
     <a href="help.jsp">Help</a>
+    <a href="contact.jsp">Contact</a>
 
     <span class="right">
-        <% if (user != null) { %>
-            Welcome, <strong><%= user.getFullName() %></strong>
-            <a href="logout" class="logout">Logout</a>
-        <% } else { %>
-            <a href="login.jsp">Login</a>
-        <% } %>
+        Welcome, <strong><%= user.getFullName() %></strong>
+        <a href="logout" class="logout">Logout</a>
     </span>
 </div>
 <div class="container">

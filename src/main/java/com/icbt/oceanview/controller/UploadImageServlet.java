@@ -3,29 +3,37 @@ package com.icbt.oceanview.controller;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.icbt.oceanview.dao.GalleryDAO;
 import com.icbt.oceanview.model.GalleryImage;
+import com.icbt.oceanview.model.User;
 
+@WebServlet("/uploadImage")
 @MultipartConfig
 public class UploadImageServlet extends HttpServlet {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
+        // 🔐 ADMIN SECURITY CHECK
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null || !"ADMIN".equals(user.getRole())) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
 
         String title = req.getParameter("title");
         Part filePart = req.getPart("image");
 
         String fileName = System.currentTimeMillis() + "_" + filePart.getSubmittedFileName();
 
-        String uploadPath = getServletContext()
-                .getRealPath("/images/gallery");
+        String uploadPath = getServletContext().getRealPath("/images/gallery");
 
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();

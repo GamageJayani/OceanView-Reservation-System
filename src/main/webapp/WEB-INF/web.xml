@@ -16,12 +16,7 @@
   	<description></description>
   	<servlet-class>com.icbt.oceanview.controller.RegisterServlet</servlet-class>
   </servlet>
-  <servlet>
-  	<servlet-name>AddReservationServlet</servlet-name>
-  	<display-name>AddReservationServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.icbt.oceanview.controller.AddReservationServlet</servlet-class>
-  </servlet>
+  
   <servlet>
   	<servlet-name>BillServlet</servlet-name>
   	<display-name>BillServlet</display-name>
@@ -52,14 +47,41 @@
   	<description></description>
   	<servlet-class>com.icbt.oceanview.controller.CustomerReservationStatusServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>UpdateRoomServlet</servlet-name>
+  	<display-name>UpdateRoomServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.UpdateRoomServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CustomerReservationServlet</servlet-name>
+  	<display-name>CustomerReservationServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.CustomerReservationServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AllReservationsServlet</servlet-name>
+  	<display-name>AllReservationsServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.AllReservationsServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddReservationServlet</servlet-name>
+  	<display-name>AddReservationServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.AddReservationServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddFeedbackServlet</servlet-name>
+  	<display-name>AddFeedbackServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.AddFeedbackServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>RegisterServlet</servlet-name>
   	<url-pattern>/RegisterServlet</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>AddReservationServlet</servlet-name>
-  	<url-pattern>/AddReservationServlet</url-pattern>
-  </servlet-mapping>
+  
   <servlet-mapping>
   	<servlet-name>BillServlet</servlet-name>
   	<url-pattern>/BillServlet</url-pattern>
@@ -80,4 +102,20 @@
   	<servlet-name>CustomerReservationStatusServlet</servlet-name>
   	<url-pattern>/CustomerReservationStatusServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UpdateRoomServlet</servlet-name>
+  	<url-pattern>/UpdateRoomServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AllReservationsServlet</servlet-name>
+  	<url-pattern>/AllReservationsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddReservationServlet</servlet-name>
+  	<url-pattern>/AddReservationServlet</url-pattern>
+  </servlet-mapping>
+
+  
+
+  
 </web-app>

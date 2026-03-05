@@ -20,18 +20,42 @@
 <head>
 <title>Admin | Messages</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+.msg-container{
+    max-width: 1000px;  
+    margin: 50px auto;   
+    padding: 30px;       
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+</style>
 </head>
 <body>
 
+<!-- NAVBAR  -->
 <div class="menu">
     <span class="logo">Ocean View Resort</span>
-    <a href="admindashboard.jsp">Dashboard</a>
+
+    <a href="admindashboard.jsp">Home</a>
+    <a href="AdminReservationServlet">All Reservations</a>
+    <a href="about.jsp">About</a>
+    <a href="help.jsp">Help</a>
     <a href="adminmessages.jsp">Messages</a>
-    <a href="allreservations.jsp">Reservations</a>
-    <a href="logout.jsp" class="logout">Logout</a>
+    <a href="admingallery.jsp">Gallery</a>
+    <a href="rooms.jsp">Rooms</a>
+    <a href="adminpayments.jsp">All Payments</a>
+    <a href="viewFeedback.jsp">Feedback</a>
+    <a href="contact.jsp">Contact</a>
+	
+    <span class="right">
+        Welcome, <strong><%= user.getFullName() %></strong>
+        <a href="logout" class="logout">Logout</a>
+    </span>
 </div>
 
-<div class="container">
+
+<div class="msg-container">
 <h2>Customer Messages</h2>
 
 <% if ("true".equals(request.getParameter("deleted"))) { %>
@@ -60,6 +84,7 @@
         <a href="deleteMessage?id=<%= m.getMessageId() %>"
            onclick="return confirm('Delete this message?');"
            style="color:red;">Delete</a>
+           
     </td>
 </tr>
 <% } %>

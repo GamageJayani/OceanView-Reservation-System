@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.icbt.oceanview.dao.ReservationDAO;
 import com.icbt.oceanview.model.Reservation;
 import com.icbt.oceanview.model.User;
@@ -21,13 +22,15 @@ public class CustomerReservationStatusServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+
         if (user == null || !"CUSTOMER".equals(user.getRole())) {
             response.sendRedirect("login.jsp");
             return;
         }
 
+        // FIXED: Use userId instead of phone
         ReservationDAO dao = new ReservationDAO();
-        List<Reservation> reservations = dao.getReservationsByCustomer(user.getPhone());
+        List<Reservation> reservations = dao.getReservationsByCustomer(user.getId());
 
         request.setAttribute("reservations", reservations);
         request.getRequestDispatcher("customerReservationStatus.jsp").forward(request, response);

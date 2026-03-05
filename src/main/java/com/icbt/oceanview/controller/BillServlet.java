@@ -6,12 +6,11 @@ import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.icbt.oceanview.dao.ReservationDAO;
 import com.icbt.oceanview.model.Reservation;
+import com.icbt.oceanview.model.User;
 
 @WebServlet("/bill")
 public class BillServlet extends HttpServlet {
@@ -21,19 +20,39 @@ public class BillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        String idParam = request.getParameter("id");
+        if (idParam == null) {
+            response.sendRedirect("myReservations.jsp?error=invalidId");
+            return;
+        }
+
         int id;
         try {
-            id = Integer.parseInt(request.getParameter("id"));
+            id = Integer.parseInt(idParam);
         } catch (NumberFormatException e) {
-            response.sendRedirect("viewReservation.jsp?error=invalidId");
+            response.sendRedirect("myReservations.jsp?error=invalidId");
             return;
         }
 
         ReservationDAO dao = new ReservationDAO();
-        Reservation r = dao.getReservation(id);
+
+        //  SECURITY FIX — CHECK user_id
+        Reservation r = dao.getReservationByIdAndUser(id, user.getId());
 
         if (r == null) {
-            response.sendRedirect("viewReservation.jsp?error=notfound");
+            response.sendRedirect("myReservations.jsp?error=unauthorized");
             return;
         }
 
@@ -41,18 +60,17 @@ public class BillServlet extends HttpServlet {
                 r.getCheckIn().toLocalDate(),
                 r.getCheckOut().toLocalDate());
 
-        // Room rate
-        double rate;
+        if (nights <= 0) nights = 1;
+
+        double rate = 0;
         switch (r.getRoomType()) {
             case "Single": rate = 5000; break;
             case "Double": rate = 8000; break;
             case "Standard": rate = 10000; break;
             case "Deluxe": rate = 12000; break;
             case "Family": rate = 15000; break;
-            default: rate = 0;
         }
 
-        // Meal total (per night)
         double mealTotal = 0;
         if (r.isBreakfast()) mealTotal += 1500 * nights;
         if (r.isLunch()) mealTotal += 2500 * nights;
@@ -60,15 +78,9 @@ public class BillServlet extends HttpServlet {
 
         double roomTotal = rate * nights;
         double subTotal = roomTotal + mealTotal;
-        double serviceCharge = subTotal * 0.10; // 10%
+        double serviceCharge = subTotal * 0.10;
         double grandTotal = subTotal + serviceCharge;
 
-        // Bill meta info
-        String billNumber = "BILL-" + UUID.randomUUID().toString().substring(0, 6);
-        String paymentStatus = "Pending";
-        String paymentMethod = "Cash";
-
-        // Set request attributes for JSP
         request.setAttribute("reservation", r);
         request.setAttribute("nights", nights);
         request.setAttribute("rate", rate);
@@ -76,9 +88,9 @@ public class BillServlet extends HttpServlet {
         request.setAttribute("mealTotal", mealTotal);
         request.setAttribute("serviceCharge", serviceCharge);
         request.setAttribute("grandTotal", grandTotal);
-        request.setAttribute("billNumber", billNumber);
-        request.setAttribute("paymentStatus", paymentStatus);
-        request.setAttribute("paymentMethod", paymentMethod);
+        request.setAttribute("billNumber", "BILL-" + UUID.randomUUID().toString().substring(0, 6));
+        request.setAttribute("paymentStatus", "Pending");
+        request.setAttribute("paymentMethod", "Not Paid");
 
         request.getRequestDispatcher("bill.jsp").forward(request, response);
     }

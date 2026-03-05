@@ -1,10 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+
+
 <%@ page import="com.icbt.oceanview.model.User" %>
-
 <%
-User user = (User) session.getAttribute("user");
+    User user = (User) session.getAttribute("user");
+    if(user == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    String backUrl = "customerdashboard.jsp"; // default back url
+    if ("ADMIN".equals(user.getRole())) {
+        backUrl = "admindashboard.jsp";
+    }
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,25 +95,14 @@ User user = (User) session.getAttribute("user");
 
 <body>
 
-<!-- NAVBAR -->
-<div class="menu">
+   <div class="menu">
     <span class="logo">Ocean View Resort</span>
-
-    <a href="customerdashboard.jsp">Dashboard</a>
-    <a href="addReservation.jsp">Add Reservation</a>
-    <a href="myReservations.jsp">My Reservations</a>
-    <a href="bill.jsp">Bill</a>
-    <a href="gallery.jsp">Gallery</a>
-    <a href="about.jsp">About</a>
-    <a href="help.jsp">Help</a>
-
+   
+    <a href="<%= backUrl %>" class="back-button">Back to Dashboard</a>
+   
     <span class="right">
-        <% if(user != null){ %>
-            Welcome, <strong><%= user.getFullName() %></strong>
-            <a href="logout" class="logout">Logout</a>
-        <% } else { %>
-            <a href="login.jsp">Login</a>
-        <% } %>
+        Welcome, <strong><%= user.getFullName() %></strong>
+        <a href="logout" class="logout">Logout</a>
     </span>
 </div>
 

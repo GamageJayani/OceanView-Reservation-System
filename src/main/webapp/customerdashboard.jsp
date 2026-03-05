@@ -16,12 +16,26 @@
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-
+.menu {
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    border-radius: 5px;
+}
+.menu .logo {font-weight: bold;font-size: 20px;}
+.menu a {color: white;text-decoration: none;margin-right: 15px;padding: 5px 10px; border-radius: 4px;}
+.menu a:hover {background-color: #0059b3;}
+.menu .right {margin-left: auto;font-size: 14px;}
+.menu .logout {margin-left: 10px;color: #ffcccc;}
+.menu .logout:hover {color: #ff6666;}
 /* 🔹 HERO BANNER STYLE (Template Design Style) */
 /* 🔹 HERO BANNER (Image + Dark Blue Dull Effect) */
 .hero {
     position: relative;
-  
     margin: 10px 0;   /* Reduced margin */
     border-radius: 20px;
     overflow: hidden;   /* important for overlay */
@@ -105,7 +119,7 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* 🔹 Gallery (Keep Your Design Clean) */
+/*  Gallery (Keep Your Design Clean) */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -121,15 +135,18 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* 🔹 Section */
+/* Section */
 .section {
     padding: 10px;
     background: #f8fbff;
     border-radius: 10px;
     margin-top: 20px;
+    margin-right:20px;
+    margin-left:20px;
+    margin-bottom:20px;
 }
 
-/* 🔹 Quick Actions */
+/* Quick Actions */
 .actions a {
     display: inline-block;
     margin-right: 15px;
@@ -156,17 +173,20 @@
 
 <body>
 
-<!-- 🔹 NAV BAR (UNCHANGED) -->
+<!--  NAV BAR -->
 <div class="menu">
     <span class="logo">Ocean View Resort</span>
 
-    <a href="customerdashboard.jsp">Dashboard</a>
+    <a href="customerdashboard.jsp">Home</a>
     <a href="addReservation.jsp">Add Reservation</a>
-    <a href="myReservations.jsp">My Reservations</a>
-    <a href="bill.jsp">Bill</a>
+    <a href="CustomerReservationServlet">My Reservations</a>
     <a href="gallery.jsp">Gallery</a>
+    <a href="payment.jsp"> Payment</a>
+    <a href="viewMessages.jsp">Message</a>
+    <a href="feedback.jsp">Feedback</a>
     <a href="about.jsp">About</a>
     <a href="help.jsp">Help</a>
+    <a href="contact.jsp">Contact</a>
 
     <span class="right">
         Welcome, <strong><%= user.getFullName() %></strong>
@@ -205,7 +225,8 @@
     <div class="actions">
         <a href="addReservation.jsp">➕ Add Reservation</a>
         <a href="myReservations.jsp">📄 My Reservations</a>
-        <a href="bill.jsp">💰 View Bill</a>
+        <a href="bill.jsp"class="view-bill">💰 View Bill</a>
+</a>
     </div>
 
 </div>

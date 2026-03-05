@@ -1,12 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.icbt.oceanview.model.User"%>
+
+<%
+    User user = (User) session.getAttribute("user");
+    if(user == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    String backUrl = "customerdashboard.jsp"; // default back url
+    if ("ADMIN".equals(user.getRole())) {
+        backUrl = "admindashboard.jsp";
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Contact Us</title>
 <link rel="stylesheet" href="css/style.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 /* Floating button */
 .contact-btn {
@@ -64,16 +77,31 @@ function closeContact() {
 
 </head>
 <body>
-
+<div class="menu">
+    <span class="logo">Ocean View Resort</span>
+    <br>
+   <a href="<%= backUrl %>" class="back-button">Back to Dashboard</a>
+   
+    <span class="right">
+        Welcome, <strong><%= user.getFullName() %></strong>
+        <a href="logout" class="logout">Logout</a>
+    </span>
+</div>
+<br>
 <div class="container">
     <h2>Contact Ocean View Resort</h2>
     <p>
         Need help with reservations or billing?  
         Use the message button to contact our admin team.
     </p>
-    <p style="font-size:12px;color:gray;margin-top:10px;"> Ocean View Resort – Galle<br> 📞 077-2345678</p>
+    <div class="contact-info">
+    <p style="font-size:14px;color:gray;margin-top:10px;"> Ocean View Resort – Galle</p>
+    <p style="font-size:14px;color:gray;margin-top:10px;"><i class="fa fa-phone"></i> : +94 77 2 345 678</p>
+    <p style="font-size:14px;color:gray;margin-top:10px;"><i class="fa fa-envelope"></i> : info@oceanview.com</p>
+    <p style="font-size:14px;color:gray;margin-top:10px;"><i class="fa fa-map-marker"></i> : 123 Ocean View St, Galle</p>
+    <p style="font-size:14px;color:gray;margin-top:10px;"><i class="fa fa-globe"></i> : <a href="https://www.oceanview.com">www.oceanviewresort.com</a></p>
 </div>
-
+</div>
 <div class="contact-btn" onclick="openMessagePopup()">
     💬 Message Us
 </div>

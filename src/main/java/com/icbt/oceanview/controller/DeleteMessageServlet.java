@@ -1,7 +1,6 @@
 package com.icbt.oceanview.controller;
 
 import java.io.IOException;
-import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
@@ -10,12 +9,14 @@ import com.icbt.oceanview.dao.MessageDAO;
 @WebServlet("/deleteMessage")
 public class DeleteMessageServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest request,
+	protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
 

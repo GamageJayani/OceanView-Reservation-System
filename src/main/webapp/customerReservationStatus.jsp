@@ -22,14 +22,25 @@
 </head>
 <body>
 
+<!--  NAV BAR -->
 <div class="menu">
-    <a href="customerdashboard.jsp">Dashboard</a>
-    <a href="addReservation.jsp">Add Reservation</a>
-    <a href="customerReservations" class="active">My Reservations</a>
-    <a href="bill.jsp">Bill</a>
-    <a href="logout">Logout</a>
-</div>
+    <span class="logo">Ocean View Resort</span>
 
+    <a href="customerdashboard.jsp">Home</a>
+    <a href="addReservation.jsp">Add Reservation</a>
+    <a href="CustomerReservationServlet">My Reservations</a>
+    <a href="gallery.jsp">Gallery</a>
+    <a href="payment.jsp"> Payment</a>
+    <a href="viewMessages.jsp">Message</a>
+    <a href="about.jsp">About</a>
+    <a href="help.jsp">Help</a>
+    <a href="contact.jsp">Contact</a>
+
+    <span class="right">
+        Welcome, <strong><%= user.getFullName() %></strong>
+        <a href="logout" class="logout">Logout</a>
+    </span>
+</div>
 <div class="container">
     <h2>My Reservations</h2>
 

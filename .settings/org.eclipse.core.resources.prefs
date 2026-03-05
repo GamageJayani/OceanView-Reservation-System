@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/adminmessages.jsp=UTF-8
 encoding//src/main/webapp/customerdashboard.jsp=UTF-8
+encoding//src/main/webapp/invoice.jsp=UTF-8
 encoding//src/main/webapp/replymessage.jsp=UTF-8
+encoding//src/main/webapp/updateRoom.jsp=UTF-8

@@ -1,16 +1,12 @@
 package com.icbt.oceanview.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.icbt.oceanview.dao.GalleryDAO;
 
-/**
- * Servlet implementation class DeleteImageServlet
- */
 @WebServlet("/deleteImage")
 public class DeleteImageServlet extends HttpServlet {
 
@@ -24,7 +20,20 @@ public class DeleteImageServlet extends HttpServlet {
             throws IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        new GalleryDAO().deleteImage(id);
-        response.sendRedirect("admingallery.jsp");
+
+        GalleryDAO dao = new GalleryDAO();
+
+        String fileName = dao.getImageNameById(id);
+
+        String path = getServletContext().getRealPath("/images/gallery");
+        File file = new File(path + File.separator + fileName);
+
+        if(file.exists()){
+            file.delete();
+        }
+
+        dao.deleteImage(id);
+
+        response.sendRedirect(request.getContextPath() + "/admingallery.jsp");
     }
 }
