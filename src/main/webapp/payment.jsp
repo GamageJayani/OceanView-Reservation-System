@@ -94,7 +94,7 @@
 </div>
 
 <div class="payment-container">
-    <h2>Make Payment for <%= roomType %></h2>
+    <h2>Make Payment <%= roomType %></h2>
 
     <% if ("missingparams".equals(error)) { %>
         <p class="error">Please fill all required fields.</p>
