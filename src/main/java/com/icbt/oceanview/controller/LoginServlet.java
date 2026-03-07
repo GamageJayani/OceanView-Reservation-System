@@ -24,27 +24,29 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null) {
 
-            // 🔥 VERY IMPORTANT FIX
             HttpSession oldSession = request.getSession(false);
             if (oldSession != null) {
-                oldSession.invalidate();   // destroy previous session
+                oldSession.invalidate();
             }
 
             HttpSession newSession = request.getSession(true);
             newSession.setAttribute("user", user);
 
             if ("ADMIN".equals(user.getRole())) {
+
                 newSession.setAttribute("successMessage", "Welcome Admin 👋");
-                response.sendRedirect("admindashboard.jsp");
+                response.sendRedirect("admindashboard.jsp?success=1");
 
             } else if ("CUSTOMER".equals(user.getRole())) {
+
                 newSession.setAttribute("successMessage", "Login successful! Welcome 🌊");
-                response.sendRedirect("customerdashboard.jsp");
+                response.sendRedirect("login.jsp?success=1");
             }
 
         } else {
+
             request.setAttribute("errorMessage", "Invalid username or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
-} 
+}

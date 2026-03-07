@@ -9,10 +9,14 @@
 
 <div class="container">
     <h2>Register New Account</h2>
+    
+	<% if(request.getParameter("registered") != null){ %>
+    <p style="color:green;">✅ Registration successful! Please login.</p>
+<% } %>
 
-    <% if(request.getParameter("error") != null){ %>
-        <p style="color:red;">❌ Registration failed. Try again.</p>
-    <% } %>
+<% if(request.getParameter("error") != null){ %>
+    <p style="color:red;">❌ Registration failed. Try again.</p>
+<% } %>
 
     <form action="register" method="post">
         <label>Full Name:</label><br>

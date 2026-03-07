@@ -14,6 +14,24 @@
     List<Room> rooms = dao.getAllRooms();
 %>
 
+<%
+    String success = request.getParameter("success");
+    String error = request.getParameter("error");
+%>
+
+<% if(success != null) { %>
+    <div style="padding:10px; margin-bottom:15px; border-radius:5px; color:white;
+                background: <%= "add".equals(success) ? "#28a745" : "update".equals(success) ? "#007bff" : "#28a745" %>;">
+        <%= "add".equals(success) ? "Room added successfully!" : "update".equals(success) ? "Room updated successfully!" : "" %>
+    </div>
+<% } %>
+
+<% if(error != null) { %>
+    <div style="padding:10px; margin-bottom:15px; border-radius:5px; color:white; background:#dc3545;">
+        An error occurred. Please try again.
+    </div>
+<% } %>
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -113,8 +113,12 @@
                 <td>
                     <a href="bill?id=<%= r.getReservationId() %>">
                         <button class="view-bill">View Bill</button>
+                        
+                      
                     </a>
                 </td>
+                
+                
             </tr>
         <%
                 }

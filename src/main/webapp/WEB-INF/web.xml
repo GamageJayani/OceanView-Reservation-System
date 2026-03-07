@@ -77,6 +77,12 @@
   	<description></description>
   	<servlet-class>com.icbt.oceanview.controller.AddFeedbackServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DeleteReservationServlet</servlet-name>
+  	<display-name>DeleteReservationServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.oceanview.controller.DeleteReservationServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>RegisterServlet</servlet-name>
   	<url-pattern>/RegisterServlet</url-pattern>
@@ -113,6 +119,10 @@
   <servlet-mapping>
   	<servlet-name>AddReservationServlet</servlet-name>
   	<url-pattern>/AddReservationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteReservationServlet</servlet-name>
+  	<url-pattern>/DeleteReservationServlet</url-pattern>
   </servlet-mapping>
 
   

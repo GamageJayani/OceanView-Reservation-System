@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
 import com.icbt.oceanview.dao.ReservationDAO;
 import com.icbt.oceanview.dao.DBConnection;
 import com.icbt.oceanview.model.Reservation;
@@ -19,15 +20,25 @@ public class AddReservationServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        if (session == null) { response.sendRedirect("login.jsp"); return; }
+        if (session == null) { 
+            response.sendRedirect("login.jsp"); 
+            return; 
+        }
 
         User user = (User) session.getAttribute("user");
-        if (user == null) { response.sendRedirect("login.jsp"); return; }
+        if (user == null) { 
+            response.sendRedirect("login.jsp"); 
+            return; 
+        }
 
         try {
+            // --- Validate dates ---
             LocalDate in = Date.valueOf(request.getParameter("checkIn")).toLocalDate();
             LocalDate out = Date.valueOf(request.getParameter("checkOut")).toLocalDate();
-            if (!out.isAfter(in)) { response.sendRedirect("addReservation.jsp?error=dates"); return; }
+            if (!out.isAfter(in)) { 
+                response.sendRedirect("addReservation.jsp?error=dates");
+                return; 
+            }
 
             String roomType = request.getParameter("roomType");
 
@@ -64,7 +75,7 @@ public class AddReservationServlet extends HttpServlet {
 
                 // --- Insert reservation using same connection ---
                 ReservationDAO dao = new ReservationDAO();
-                dao.addReservation(con, r); // new method with Connection parameter
+                dao.addReservation(con, r);
 
                 // --- Update room status ---
                 try (PreparedStatement psUpdate = con.prepareStatement(
@@ -75,12 +86,11 @@ public class AddReservationServlet extends HttpServlet {
 
                 con.commit(); // commit transaction
 
-                // --- Redirect to payment page ---
-                response.sendRedirect("payment.jsp?reservationId=" + r.getReservationId());
+                // --- Redirect back to addReservation.jsp with success msg ---
+                response.sendRedirect("addReservation.jsp?success=1");
 
             } catch (Exception e) {
                 e.printStackTrace();
-                try { e.printStackTrace(); } catch (Exception ex) {}
                 response.sendRedirect("addReservation.jsp?error=server");
             }
 

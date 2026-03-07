@@ -51,12 +51,15 @@
 
 <div class="container">
     <h2>Add New Reservation</h2>
+    
+<%-- SUCCESS MESSAGE --%>
+<% if("1".equals(success)) { %>
+    <p style="color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
+        Reservation added successfully!
+    </p>
+<% } %>
 
-    <% if("1".equals(success)) { %>
-        <p style="color:green; background:#e6ffe6; padding:10px; border-radius:5px;">
-            Reservation added successfully!
-        </p>
-    <% } %>
+
 
     <% if("dates".equals(error)) { %>
         <p style="color:red;">Check-out date must be after check-in date!</p>
